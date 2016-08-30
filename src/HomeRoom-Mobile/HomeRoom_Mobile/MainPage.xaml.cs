@@ -36,5 +36,10 @@ namespace HomeRoom_Mobile
             };
             InitializeComponent();
         }
+
+        private void NewCourseClicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new NewCoursePage());
+        }
     }
 }

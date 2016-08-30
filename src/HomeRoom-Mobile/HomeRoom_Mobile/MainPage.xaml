@@ -15,7 +15,8 @@
   </ContentPage.Resources>
   
   <ContentPage.ToolbarItems>
-    <ToolbarItem Text="New"/>
+    <ToolbarItem Text="New"
+                 Clicked="NewCourseClicked"/>
   </ContentPage.ToolbarItems>
   
   <ListView ItemsSource="{x:Static local:MainPage.Courses}"
