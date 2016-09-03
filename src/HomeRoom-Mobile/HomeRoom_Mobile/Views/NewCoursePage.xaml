@@ -1,21 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="HomeRoom_Mobile.NewCoursePage"
+             x:Class="HomeRoom_Mobile.Views.NewCoursePage"
              Title="New Course">
+  <ContentPage.ToolbarItems>
+    <ToolbarItem Text="Save"
+                 Command="{Binding SaveCommand}">
+      
+    </ToolbarItem>
+  </ContentPage.ToolbarItems>
   
   <TableView>
     <TableRoot Title="New Course">
       <TableSection Title="Basic Info">
         <EntryCell Placeholder="Course Name"
+                   Text="{Binding Name, Mode=TwoWay}"
                    Label="Course Name"
-                   Keyboard="Default"/>
+                   Keyboard="Default">
+          </EntryCell>
         <EntryCell Placeholder="Course Subject"
-           Label="Course Subject"
-           Keyboard="Default"/>
+                   Text="{Binding Subject, Mode=TwoWay}"
+                   Label="Course Subject"
+                   Keyboard="Default"/>`
       </TableSection>
       <TableSection Title="Details">
         <EntryCell Placeholder="Teacher"
+                   Text="{Binding Mode=TwoWay}"
                    Label="Teacher"
                    Keyboard="Default"/>
       </TableSection>

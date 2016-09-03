@@ -1,4 +1,7 @@
-﻿using Xamarin.Forms;
+﻿using HomeRoom_Mobile.Interfaces;
+using HomeRoom_Mobile.Services;
+using HomeRoom_Mobile.ViewModels;
+using Xamarin.Forms;
 
 namespace HomeRoom_Mobile
 {
@@ -7,8 +10,16 @@ namespace HomeRoom_Mobile
         public App()
         {
             InitializeComponent();
+            var mainPage = new NavigationPage(new Views.MainPage());
+            var navigationService = DependencyService.Get<INavigationService>() as NavigationService;
+            navigationService.XamarinNavigation = mainPage.Navigation;
 
-            MainPage = new NavigationPage(new MainPage());
+            // register the view model to view mappings
+            navigationService.RegisterViewMapping(typeof(MainViewModel), typeof(Views.MainPage));
+            navigationService.RegisterViewMapping(typeof(CourseDetailViewModel), typeof(Views.CourseDetailsPage));
+            navigationService.RegisterViewMapping(typeof(NewCourseViewModel), typeof(Views.NewCoursePage));
+
+            MainPage = mainPage;
         }
 
         protected override void OnStart()
