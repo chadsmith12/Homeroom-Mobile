@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Foundation;
+using HomeRoom_Mobile.iOS.Modules;
 using UIKit;
 
 namespace HomeRoom_Mobile.iOS
@@ -23,7 +24,9 @@ namespace HomeRoom_Mobile.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
-            LoadApplication(new App());
+
+            // Pass along our platform specific services
+            LoadApplication(new App(new PlatformModule()));
 
             return base.FinishedLaunching(app, options);
         }

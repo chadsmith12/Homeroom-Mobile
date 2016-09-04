@@ -10,7 +10,6 @@ namespace HomeRoom_Mobile.Views
         public CourseDetailsPage()
         {
             InitializeComponent();
-            BindingContext = new CourseDetailViewModel(DependencyService.Get<INavigationService>());
         }
     }
 }

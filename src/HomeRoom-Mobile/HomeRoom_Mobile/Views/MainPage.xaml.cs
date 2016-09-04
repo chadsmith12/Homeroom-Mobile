@@ -14,7 +14,6 @@ namespace HomeRoom_Mobile.Views
         public MainPage()
         {
             InitializeComponent();
-            BindingContext = new MainViewModel(DependencyService.Get<INavigationService>());
         }
 
         private async void CourseTaped(object sender, ItemTappedEventArgs e)

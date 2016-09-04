@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:HomeRoom_Mobile"
+             xmlns:converters="clr-namespace:HomeRoom_Mobile.Converters;assembly=HomeRoom_Mobile"
              x:Class="HomeRoom_Mobile.Views.MainPage"
              Title="Courses">
   
@@ -12,6 +13,7 @@
                   iOS="60"
                   Android="60"
                   WinPhone="85"/>
+      <converters:InverseBooleanConverter x:Key="InverseBoolean"/>
     </ResourceDictionary>
   </ContentPage.Resources>
   
@@ -19,16 +21,19 @@
     <ToolbarItem Text="New"
                  Command="{Binding NewCourseCommand}"/>
   </ContentPage.ToolbarItems>
-  
-  <ListView ItemsSource="{Binding Courses}"
-            RowHeight="{StaticResource RowHeight}"
-            ItemTapped="CourseTaped">
 
-    <!--Setting the item template-->
-    <ListView.ItemTemplate>
-      <DataTemplate>
-        <ViewCell>
-          <ViewCell.View>
+  
+  <Grid>
+    <ListView ItemsSource="{Binding Courses}"
+            RowHeight="{StaticResource RowHeight}"
+            ItemTapped="CourseTaped"
+            IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolean}}">
+
+      <!--Setting the item template-->
+      <ListView.ItemTemplate>
+        <DataTemplate>
+          <ViewCell>
+            <ViewCell.View>
               <StackLayout Padding="5, 0, 0, 0"
                            VerticalOptions="Center"
                            HorizontalOptions="StartAndExpand">
@@ -39,13 +44,25 @@
                              Spacing="0"
                              HorizontalOptions="StartAndExpand">
                   <Label Text="{Binding Subject}"></Label>
+                </StackLayout>
               </StackLayout>
-            </StackLayout>
-          </ViewCell.View>
-        </ViewCell>
-      </DataTemplate>
-    </ListView.ItemTemplate>
-    
-  </ListView>
+            </ViewCell.View>
+          </ViewCell>
+        </DataTemplate>
+      </ListView.ItemTemplate>
+
+    </ListView>
+
+    <!--Loading Indicator - shown when we are busy-->
+    <StackLayout Orientation="Vertical"
+                 HorizontalOptions="Center"
+                 VerticalOptions="Center"
+                 IsVisible="{Binding IsBusy}">
+      <ActivityIndicator IsRunning="True"
+                         IsVisible="True"/>
+      <Label Text="Loading Courses..."/>
+    </StackLayout>
+  </Grid>
+  
 
 </ContentPage>

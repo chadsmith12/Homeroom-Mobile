@@ -6,6 +6,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using HomeRoom_Mobile.Droid.Modules;
 
 namespace HomeRoom_Mobile.Droid
 {
@@ -20,7 +21,9 @@ namespace HomeRoom_Mobile.Droid
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
-            LoadApplication(new App());
+
+            // pass along our platform specific services
+            LoadApplication(new App(new PlatformModule()));
         }
     }
 }

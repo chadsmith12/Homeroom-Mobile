@@ -12,23 +12,37 @@ namespace HomeRoom_Mobile.ViewModels
     /// <seealso cref="System.ComponentModel.INotifyPropertyChanged" />
     public abstract class BaseViewModel : INotifyPropertyChanged
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="BaseViewModel"/> class.
-        /// </summary>
-        /// <param name="navigationService">The navigation service.</param>
-        protected BaseViewModel(INavigationService navigationService)
-        {
-            NavigationService = navigationService;
-        }
+        #region Private Fields
+        private bool _isBusy;
+        #endregion
 
+        #region Properties
         /// <summary>
-        /// Initializes this instance of a view model without using a constructor.
-        /// This is useful when a ViewModel needs to be refreshed
+        /// Gets the navigation service.
         /// </summary>
-        /// <returns></returns>
-        public abstract Task Init();
-
+        /// <value>
+        /// The navigation service.
+        /// </value>
         protected INavigationService NavigationService { get; private set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating that we are busy.
+        /// This could be because data is being loaded or some other lengthy processing
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is busy; otherwise, <c>false</c>.
+        /// </value>
+        public bool IsBusy
+        {
+            get { return _isBusy;}
+            set
+            {
+                _isBusy = value;
+                OnPropertyChanged();
+                OnIsBusyChanged();
+            }
+        }
+        #endregion
 
         #region Property Changed        
         /// <summary>
@@ -44,6 +58,38 @@ namespace HomeRoom_Mobile.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        /// <summary>
+        /// Called when [is busy changed].
+        /// </summary>
+        protected virtual void OnIsBusyChanged()
+        {
+            
+        }
+        #endregion
+
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BaseViewModel"/> class.
+        /// </summary>
+        /// <param name="navigationService">The navigation service.</param>
+        protected BaseViewModel(INavigationService navigationService)
+        {
+            NavigationService = navigationService;
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Initializes this instance of a view model without using a constructor.
+        /// This is useful when a ViewModel needs to be refreshed
+        /// </summary>
+        /// <returns></returns>
+        public abstract Task Init();
+
         #endregion
     }
 
@@ -54,6 +100,7 @@ namespace HomeRoom_Mobile.ViewModels
     /// <seealso cref="System.ComponentModel.INotifyPropertyChanged" />
     public abstract class BaseViewModel<TParameter> : BaseViewModel
     {
+        #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseViewModel{TParameter}"/> class.
         /// </summary>
@@ -62,6 +109,10 @@ namespace HomeRoom_Mobile.ViewModels
         {
             
         }
+
+        #endregion
+
+        #region Methods
 
         /// <summary>
         /// Initializes this instance of a view model without using a constructor.
@@ -79,5 +130,7 @@ namespace HomeRoom_Mobile.ViewModels
         /// <param name="parameter">The parameter.</param>
         /// <returns></returns>
         public abstract Task Init(TParameter parameter);
+
+        #endregion
     }
 }

@@ -1,23 +1,34 @@
-﻿using HomeRoom_Mobile.Interfaces;
-using HomeRoom_Mobile.Services;
+﻿using HomeRoom_Mobile.Modules;
 using HomeRoom_Mobile.ViewModels;
+using Ninject;
+using Ninject.Modules;
 using Xamarin.Forms;
 
 namespace HomeRoom_Mobile
 {
     public partial class App : Application
     {
-        public App()
+        /// <summary>
+        /// Gets or sets the kernal.
+        /// </summary>
+        /// <value>
+        /// The kernal.
+        /// </value>
+        public IKernel Kernal { get; set; }
+
+
+        public App(params INinjectModule[] platformModules)
         {
             InitializeComponent();
             var mainPage = new NavigationPage(new Views.MainPage());
-            var navigationService = DependencyService.Get<INavigationService>() as NavigationService;
-            navigationService.XamarinNavigation = mainPage.Navigation;
+            
+            // Register all of our core services with the Kernal
+            Kernal = new StandardKernel(new CoreModule(), new NavigationModule(mainPage.Navigation));
+            // Register all of our plaform modules with the kernal
+            Kernal.Load(platformModules);
 
-            // register the view model to view mappings
-            navigationService.RegisterViewMapping(typeof(MainViewModel), typeof(Views.MainPage));
-            navigationService.RegisterViewMapping(typeof(CourseDetailViewModel), typeof(Views.CourseDetailsPage));
-            navigationService.RegisterViewMapping(typeof(NewCourseViewModel), typeof(Views.NewCoursePage));
+            // Get the MainViewModel from the IoC
+            mainPage.BindingContext = Kernal.Get<MainViewModel>();
 
             MainPage = mainPage;
         }

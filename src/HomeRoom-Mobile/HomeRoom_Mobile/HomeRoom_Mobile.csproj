@@ -38,7 +38,13 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\DatePickerEntryCell.cs" />
+    <Compile Include="Converters\InverseBooleanConverter.cs" />
+    <Compile Include="Interfaces\ILocationService.cs" />
     <Compile Include="Interfaces\INavigationService.cs" />
+    <Compile Include="Models\GeoCoords.cs" />
+    <Compile Include="Modules\CoreModule.cs" />
+    <Compile Include="Modules\NavigationModule.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\CourseDetailViewModel.cs" />
@@ -67,6 +73,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Ninject, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Portable.Ninject.3.3.1\lib\portable-net4+sl5+wp8+win8+wpa81+monotouch+monoandroid+Xamarin.iOS\Ninject.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="PropertyChanged, Version=1.51.3.0, Culture=neutral, PublicKeyToken=ee3ee20bcf148ddd, processorArchitecture=MSIL">
       <HintPath>..\..\packages\PropertyChanged.Fody.1.51.3\lib\portable-net4+sl4+wp8+win8+wpa81+MonoAndroid16+MonoTouch40\PropertyChanged.dll</HintPath>
       <Private>False</Private>

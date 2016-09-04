@@ -10,12 +10,6 @@ namespace HomeRoom_Mobile.Views
         public NewCoursePage()
         {
             InitializeComponent();
-            BindingContext = new NewCourseViewModel(DependencyService.Get<INavigationService>());
-        }
-
-        private void SaveCourseClicked(object sender, EventArgs e)
-        {
-            return;
         }
     }
 }

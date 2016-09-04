@@ -3,14 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 using HomeRoom_Mobile.Interfaces;
-using HomeRoom_Mobile.Services;
 using HomeRoom_Mobile.ViewModels;
 using Xamarin.Forms;
 
-[assembly: Dependency(typeof(NavigationService))]
 namespace HomeRoom_Mobile.Services
 {
     /// <summary>
@@ -87,6 +84,15 @@ namespace HomeRoom_Mobile.Services
             }
         }
 
+        /// <summary>
+        /// Navigates to view model type
+        /// Takes in a parameter to pass in to the view model
+        /// enables the use of a strongly typed parameter to be passed into the navigation
+        /// </summary>
+        /// <typeparam name="TViewModel">The type of the view model.</typeparam>
+        /// <typeparam name="TParameter">The type of the parameter.</typeparam>
+        /// <param name="parameter">The parameter.</param>
+        /// <returns></returns>
         public async Task NavigateTo<TViewModel, TParameter>(TParameter parameter) where TViewModel : BaseViewModel
         {
             await NavigateToView(typeof(TViewModel));
@@ -162,6 +168,7 @@ namespace HomeRoom_Mobile.Services
         /// <param name="viewModelType">Type of the view model.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException">No view found in View Mapping for the specified View Model.</exception>
+        /// <exception cref="NullReferenceException">Could not load the view registered to the view model</exception>
         private async Task NavigateToView(Type viewModelType)
         {
             Type viewType;
@@ -175,7 +182,15 @@ namespace HomeRoom_Mobile.Services
             var constructor = viewType.GetTypeInfo().DeclaredConstructors.FirstOrDefault(x => !x.GetParameters().Any());
             var view = constructor.Invoke(null) as Page;
             
-            // ToDo: see if their is a way to modify this so the views binding context can automatically be set??
+            // get a new instance of the specified ViewModel and automatically set the views binding context
+            var currentApp = (App) Application.Current;
+            var viewModel = currentApp.Kernal.GetService(viewModelType);
+
+            if (view == null)
+            {
+                throw new NullReferenceException("Could not load view of type " + viewType.FullName + " registered to the " + viewModelType.FullName);
+            }
+            view.BindingContext = viewModel;
 
             await XamarinNavigation.PushAsync(view, true);
         }

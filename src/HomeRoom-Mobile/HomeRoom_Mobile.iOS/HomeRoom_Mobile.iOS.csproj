@@ -90,6 +90,9 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
+    <Compile Include="Modules\PlatformModule.cs" />
+    <Compile Include="Renderers\DatePickerEntryCellRenderer.cs" />
+    <Compile Include="Services\LocationService.cs" />
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -116,6 +119,10 @@
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Ninject, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Portable.Ninject.3.3.1\lib\Xamarin.iOS\Ninject.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -136,12 +143,21 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Xamarin.iOS" />
+    <Reference Include="Xamarin.Mobile">
+      <HintPath>..\..\Components\xamarin.mobile-0.7.7\lib\ios-unified\Xamarin.Mobile.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HomeRoom_Mobile\HomeRoom_Mobile.csproj">
       <Project>{A84C3456-BAF9-4479-BB7E-E4F925994D37}</Project>
       <Name>HomeRoom_Mobile</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <XamarinComponentReference Include="xamarin.mobile">
+      <Visible>False</Visible>
+      <Version>0.7.7</Version>
+    </XamarinComponentReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\..\packages\Xamarin.Forms.2.0.0.6482\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.2.0.0.6482\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" />

@@ -50,7 +50,14 @@ namespace HomeRoom_Mobile.ViewModels
 
         private async Task LoadCourses()
         {
+            // if we are already busy just return from this method, don't try to load the courses twice
+            if (IsBusy)
+                return;
+
+            IsBusy = true;
             Courses.Clear();
+
+            await Task.Delay(3000);
 
             await Task.Factory.StartNew(() =>
             {
@@ -73,6 +80,8 @@ namespace HomeRoom_Mobile.ViewModels
                     Teacher = "Mrs. Price"
                 });
             });
+
+            IsBusy = false;
         }
         #endregion
     }
