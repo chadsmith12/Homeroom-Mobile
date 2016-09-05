@@ -1,4 +1,7 @@
-﻿using HomeRoom_Mobile.ViewModels;
+﻿using System;
+using HomeRoom_Mobile.Interfaces.DataService;
+using HomeRoom_Mobile.Services.DataService;
+using HomeRoom_Mobile.ViewModels;
 using Ninject.Modules;
 
 namespace HomeRoom_Mobile.Modules
@@ -15,6 +18,11 @@ namespace HomeRoom_Mobile.Modules
             Bind<CourseDetailViewModel>().ToSelf();
             Bind<MainViewModel>().ToSelf();
             Bind<NewCourseViewModel>().ToSelf();
+
+            // Bind Core Services
+            var dataService = new DataService(new Uri("http://homeroomdev.azurewebsites.net"));
+
+            Bind<IDataService>().ToMethod(x => dataService);
 
         }
     }

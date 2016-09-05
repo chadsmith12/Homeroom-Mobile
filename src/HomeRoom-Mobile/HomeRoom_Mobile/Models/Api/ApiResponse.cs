@@ -34,7 +34,7 @@ namespace HomeRoom_Mobile.Models.Api
         /// The error.
         /// </value>
         [JsonProperty("error")]
-        public ApiError Error { get; set; }
+        public ApiError? Error { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether [unauthorized result].

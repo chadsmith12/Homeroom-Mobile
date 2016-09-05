@@ -40,11 +40,16 @@
     </Compile>
     <Compile Include="Controls\DatePickerEntryCell.cs" />
     <Compile Include="Converters\InverseBooleanConverter.cs" />
+    <Compile Include="Interfaces\DataService\IDataService.cs" />
     <Compile Include="Interfaces\ILocationService.cs" />
     <Compile Include="Interfaces\INavigationService.cs" />
+    <Compile Include="Models\Api\ApiResponse.cs" />
+    <Compile Include="Models\Api\CourseResponse.cs" />
     <Compile Include="Models\GeoCoords.cs" />
     <Compile Include="Modules\CoreModule.cs" />
     <Compile Include="Modules\NavigationModule.cs" />
+    <Compile Include="Services\BaseHttpService.cs" />
+    <Compile Include="Services\DataService\DataService.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\CourseDetailViewModel.cs" />
