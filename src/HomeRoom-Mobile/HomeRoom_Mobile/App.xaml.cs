@@ -1,4 +1,5 @@
-﻿using HomeRoom_Mobile.Modules;
+﻿using System.Dynamic;
+using HomeRoom_Mobile.Modules;
 using HomeRoom_Mobile.ViewModels;
 using Ninject;
 using Ninject.Modules;
@@ -8,6 +9,8 @@ namespace HomeRoom_Mobile
 {
     public partial class App : Application
     {
+        private static Repository.Repository _repository;
+
         /// <summary>
         /// Gets or sets the kernal.
         /// </summary>
@@ -16,6 +19,14 @@ namespace HomeRoom_Mobile
         /// </value>
         public IKernel Kernal { get; set; }
 
+        /// <summary>
+        /// Gets the repository.
+        /// If there isn't a repository yet then it creates a new one with the specified database name
+        /// </summary>
+        /// <value>
+        /// The repository.
+        /// </value>
+        public static Repository.Repository Repository => _repository ?? (_repository = new Repository.Repository("HomeRoom-Mobile.db3"));
 
         public App(params INinjectModule[] platformModules)
         {

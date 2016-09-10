@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using HomeRoom_Mobile.Interfaces;
@@ -38,6 +39,21 @@ namespace HomeRoom_Mobile.ViewModels
             }
         }
 
+        public Command RefreshCoursesCommand
+        {
+            get
+            {
+                return new Command( async () =>
+                {
+                    if (IsRefreshing) return;
+                    IsRefreshing = true;
+                    await LoadCourses();
+                    Debug.WriteLine("Finished refreshing...");
+                    IsRefreshing = false;
+                });
+            }
+        }
+
         public MainViewModel(INavigationService navigationService, IDataService dataService) : base(navigationService)
         {
             Courses = new ObservableCollection<Course>();
@@ -62,9 +78,11 @@ namespace HomeRoom_Mobile.ViewModels
 
             try
             {
+                Debug.WriteLine("loading courses...");
                 var courses = await _dataService.GetAllCourses();
                 if (courses.Success)
                     Courses = new ObservableCollection<Course>(courses.Result.Courses.Select(x => new Course {Name = x.Name, Subject = x.Subject, Teacher = x.Teacher}));
+                    
             }
             finally
             {

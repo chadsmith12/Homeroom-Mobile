@@ -14,6 +14,7 @@ namespace HomeRoom_Mobile.iOS.Modules
         {
             // Bind Here.
             Bind<ILocationService>().To<LocationService>().InSingletonScope();
+            Bind<IDatabase>().To<Database>().InSingletonScope();
         }
     }
 }

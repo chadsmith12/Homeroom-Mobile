@@ -25,9 +25,12 @@
   
   <Grid>
     <ListView ItemsSource="{Binding Courses}"
-            RowHeight="{StaticResource RowHeight}"
-            ItemTapped="CourseTaped"
-            IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolean}}">
+              RowHeight="{StaticResource RowHeight}"
+              ItemTapped="CourseTaped"
+              IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolean}}"
+              IsPullToRefreshEnabled="True"
+              RefreshCommand="{Binding RefreshCoursesCommand}"
+              IsRefreshing="{Binding IsRefreshing, Mode=OneWay}">
 
       <!--Setting the item template-->
       <ListView.ItemTemplate>

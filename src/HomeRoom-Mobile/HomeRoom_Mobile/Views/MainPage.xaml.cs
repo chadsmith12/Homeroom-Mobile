@@ -31,5 +31,10 @@ namespace HomeRoom_Mobile.Views
             if (Vm != null)
                 await Vm.Init();
         }
+
+        private async void Refreshing(object sender, EventArgs e)
+        {
+            Vm.RefreshCoursesCommand.Execute(e);
+        }
     }
 }

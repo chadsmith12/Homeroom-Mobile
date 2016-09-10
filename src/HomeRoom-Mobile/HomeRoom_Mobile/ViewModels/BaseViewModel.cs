@@ -14,6 +14,20 @@ namespace HomeRoom_Mobile.ViewModels
     {
         #region Private Fields
         private bool _isBusy;
+        private bool _isRefreshing;
+        #endregion
+
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BaseViewModel"/> class.
+        /// </summary>
+        /// <param name="navigationService">The navigation service.</param>
+        protected BaseViewModel(INavigationService navigationService)
+        {
+            NavigationService = navigationService;
+        }
+
         #endregion
 
         #region Properties
@@ -42,6 +56,24 @@ namespace HomeRoom_Mobile.ViewModels
                 OnIsBusyChanged();
             }
         }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether we are refreshing.
+        /// This is used for pulldown refresh on a list view.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if this instance is refreshing; otherwise, <c>false</c>.
+        /// </value>
+        public bool IsRefreshing
+        {
+            get { return _isRefreshing;}
+            set
+            {
+                _isRefreshing = value;
+                OnPropertyChanged();
+                OnIsRefreshingChanged();
+            }
+        }
         #endregion
 
         #region Property Changed        
@@ -66,19 +98,14 @@ namespace HomeRoom_Mobile.ViewModels
         {
             
         }
-        #endregion
-
-        #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BaseViewModel"/> class.
+        /// Called when [is refreshing changed].
         /// </summary>
-        /// <param name="navigationService">The navigation service.</param>
-        protected BaseViewModel(INavigationService navigationService)
+        protected virtual void OnIsRefreshingChanged()
         {
-            NavigationService = navigationService;
+            
         }
-
         #endregion
 
         #region Methods
