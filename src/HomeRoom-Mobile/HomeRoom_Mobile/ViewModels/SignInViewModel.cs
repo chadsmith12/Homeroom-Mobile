@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Windows.Input;
 using HomeRoom_Mobile.Interfaces;
 using HomeRoom_Mobile.Interfaces.DataService;
@@ -15,21 +11,19 @@ namespace HomeRoom_Mobile.ViewModels
     [ImplementPropertyChanged]
     public class SignInViewModel : BaseViewModel
     {
+        #region Private Properties
         private readonly IDataService _dataService;
         private ICommand _signInCommand;
+        #endregion
 
+        #region Constructors
         public SignInViewModel(INavigationService navigationService, IDataService dataService) : base(navigationService)
         {
             _dataService = dataService;
         }
+        #endregion
 
-        public ICommand SignInCommand
-        {
-            get { return _signInCommand ?? (_signInCommand = new Command(async () => await ExecuteSignInCommand())); }
-        }
-        public string Email { get; set; }
-        public string Password { get; set; }
-
+        #region Methods
         public override async Task Init()
         {
             await NavigationService.ClearBackStack();
@@ -52,7 +46,15 @@ namespace HomeRoom_Mobile.ViewModels
                 await NavigationService.RemoveLastView();
             }
         }
+        #endregion
 
-
+        #region Properties
+        public ICommand SignInCommand
+        {
+            get { return _signInCommand ?? (_signInCommand = new Command(async () => await ExecuteSignInCommand())); }
+        }
+        public string Email { get; set; }
+        public string Password { get; set; }
+        #endregion
     }
 }

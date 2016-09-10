@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using HomeRoom_Mobile.Interfaces;
 using HomeRoom_Mobile.Models;
+using HomeRoom_Mobile.Models.Api;
 using HomeRoom_Mobile.ViewModels;
 using Xamarin.Forms;
 
@@ -14,12 +15,13 @@ namespace HomeRoom_Mobile.Views
         public MainPage()
         {
             InitializeComponent();
+            NavigationPage.SetHasBackButton(this, false);
         }
 
         private async void CourseTaped(object sender, ItemTappedEventArgs e)
         {
-            var coure = (Course) e.Item;
-            Vm.ViewCourseCommand.Execute(coure);
+            var course = (CourseDto) e.Item;
+            Vm.ViewCourseCommand.Execute(course);
             ((ListView) sender).SelectedItem = null;
         }
 

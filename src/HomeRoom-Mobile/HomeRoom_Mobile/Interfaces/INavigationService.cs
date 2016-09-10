@@ -27,9 +27,10 @@ namespace HomeRoom_Mobile.Interfaces
         /// <summary>
         /// Navigates to the view model type.
         /// </summary>
+        /// <param name="asModal">Navigates to the view as a modal</param>
         /// <typeparam name="TViewModel">The type of the view model.</typeparam>
         /// <returns></returns>
-        Task NavigateTo<TViewModel>() where TViewModel : BaseViewModel;
+        Task NavigateTo<TViewModel>(bool asModal = false) where TViewModel : BaseViewModel;
 
         /// <summary>
         /// Navigates to view model type

@@ -10,37 +10,18 @@ namespace HomeRoom_Mobile.ViewModels
     [ImplementPropertyChanged]
     public class NewCourseViewModel : BaseViewModel
     {
-        private string _name;
-        public string Name
-        {
-            get
-            {
-                return _name;
-            }
-            set
-            {
-                _name = value;
-                SaveCommand.ChangeCanExecute();
-            }
-        }
-
-        public string Subject { get; set; }
-
-        public string Teacher { get; set; }
-
-        // Commands
-        public Command SaveCommand => new Command(async () => await ExecuteSaveCommand(), CanSave);
-
+        #region Constructors
         public NewCourseViewModel(INavigationService navigationService) : base(navigationService)
         {
         }
 
+        #endregion
+
+        #region Methods
         public override async Task Init()
         {
             Name = String.Empty;
         }
-
-        #region Private Helper        
         /// <summary>
         /// Determines whether this instance can save.
         /// </summary>
@@ -67,7 +48,18 @@ namespace HomeRoom_Mobile.ViewModels
             // Todo: Implement logic to persist entry
             await NavigationService.GoBack();
         }
+
         #endregion
 
+        #region Properties
+        public string Name { get; set; }
+
+        public string Subject { get; set; }
+
+        public string Teacher { get; set; }
+
+        // Commands
+        public Command SaveCommand => new Command(async () => await ExecuteSaveCommand(), CanSave);
+        #endregion
     }
 }

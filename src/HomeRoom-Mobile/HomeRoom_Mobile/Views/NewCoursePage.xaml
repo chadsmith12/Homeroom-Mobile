@@ -14,18 +14,18 @@
     <TableRoot Title="New Course">
       <TableSection Title="Basic Info">
         <EntryCell Placeholder="Course Name"
-                   Text="{Binding Name, Mode=TwoWay}"
+                   Text="{Binding Course.Name, Mode=TwoWay}"
                    Label="Course Name"
                    Keyboard="Default">
           </EntryCell>
         <EntryCell Placeholder="Course Subject"
-                   Text="{Binding Subject, Mode=TwoWay}"
+                   Text="{Binding Course.Subject, Mode=TwoWay}"
                    Label="Course Subject"
                    Keyboard="Default"/>`
       </TableSection>
       <TableSection Title="Details">
         <EntryCell Placeholder="Teacher"
-                   Text="{Binding Mode=TwoWay}"
+                   Text="{Binding Course.Teacher, Mode=TwoWay}"
                    Label="Teacher"
                    Keyboard="Default"/>
       </TableSection>

@@ -6,8 +6,8 @@ using HomeRoom_Mobile.Interfaces;
 namespace HomeRoom_Mobile.ViewModels
 {
     /// <summary>
-    /// BaseViewModel that all ViewModels inherit from
-    /// Defines all properties that a view model may need
+    /// BaseViewModel that all ViewModels inherit from.
+    /// Defines all properties that a view model may need reguarly.
     /// </summary>
     /// <seealso cref="System.ComponentModel.INotifyPropertyChanged" />
     public abstract class BaseViewModel : INotifyPropertyChanged
@@ -28,6 +28,49 @@ namespace HomeRoom_Mobile.ViewModels
             NavigationService = navigationService;
         }
 
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Initializes this instance of a view model without using a constructor.
+        /// This is useful when a ViewModel needs to be refreshed
+        /// </summary>
+        /// <returns></returns>
+        public abstract Task Init();
+
+        /// <summary>
+        /// Called when [property changed].
+        /// </summary>
+        /// <param name="propertyName">Name of the property.</param>
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        /// <summary>
+        /// Called when [is busy changed].
+        /// </summary>
+        protected virtual void OnIsBusyChanged()
+        {
+
+        }
+
+        /// <summary>
+        /// Called when [is refreshing changed].
+        /// </summary>
+        protected virtual void OnIsRefreshingChanged()
+        {
+
+        }
+
+        #endregion
+
+        #region Events
+        /// <summary>
+        /// Occurs when a property value changes.
+        /// </summary>
+        public event PropertyChangedEventHandler PropertyChanged;
         #endregion
 
         #region Properties
@@ -75,53 +118,10 @@ namespace HomeRoom_Mobile.ViewModels
             }
         }
         #endregion
-
-        #region Property Changed        
-        /// <summary>
-        /// Occurs when a property value changes.
-        /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        /// <summary>
-        /// Called when [property changed].
-        /// </summary>
-        /// <param name="propertyName">Name of the property.</param>
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        /// <summary>
-        /// Called when [is busy changed].
-        /// </summary>
-        protected virtual void OnIsBusyChanged()
-        {
-            
-        }
-
-        /// <summary>
-        /// Called when [is refreshing changed].
-        /// </summary>
-        protected virtual void OnIsRefreshingChanged()
-        {
-            
-        }
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Initializes this instance of a view model without using a constructor.
-        /// This is useful when a ViewModel needs to be refreshed
-        /// </summary>
-        /// <returns></returns>
-        public abstract Task Init();
-
-        #endregion
     }
 
     /// <summary>
-    /// A generic typed BaseViewModel class that is used when a ViewModel pass a strongly typed parameter in
+    /// A generic typed BaseViewModel class that is used when a ViewModel pass a strongly typed parameter in.
     /// </summary>
     /// <typeparam name="TParameter">The type of the parameter.</typeparam>
     /// <seealso cref="System.ComponentModel.INotifyPropertyChanged" />

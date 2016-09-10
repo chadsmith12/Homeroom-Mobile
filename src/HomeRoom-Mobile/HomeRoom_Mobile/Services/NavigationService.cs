@@ -69,9 +69,10 @@ namespace HomeRoom_Mobile.Services
         /// <summary>
         /// Navigates to the view model type.
         /// </summary>
+        /// <param name="asModal"></param>
         /// <typeparam name="TViewModel">The type of the view model.</typeparam>
         /// <returns></returns>
-        public async Task NavigateTo<TViewModel>() where TViewModel : BaseViewModel
+        public async Task NavigateTo<TViewModel>(bool asModal = false) where TViewModel : BaseViewModel
         {
             await NavigateToView(typeof (TViewModel));
 
@@ -116,6 +117,7 @@ namespace HomeRoom_Mobile.Services
             {
                 var lastView = XamarinNavigation.NavigationStack[XamarinNavigation.NavigationStack.Count - 2];
                 XamarinNavigation.RemovePage(lastView);
+                OnCanGoBackChanged();
             }
         }
 
@@ -166,10 +168,11 @@ namespace HomeRoom_Mobile.Services
         /// Navigates to the view that is mapped to the specified view model.
         /// </summary>
         /// <param name="viewModelType">Type of the view model.</param>
+        /// <param name="asModal">Navigate to the view as a modal</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException">No view found in View Mapping for the specified View Model.</exception>
         /// <exception cref="NullReferenceException">Could not load the view registered to the view model</exception>
-        private async Task NavigateToView(Type viewModelType)
+        private async Task NavigateToView(Type viewModelType, bool asModal = false)
         {
             Type viewType;
 
@@ -191,6 +194,9 @@ namespace HomeRoom_Mobile.Services
                 throw new NullReferenceException("Could not load view of type " + viewType.FullName + " registered to the " + viewModelType.FullName);
             }
             view.BindingContext = viewModel;
+
+            if (asModal)
+                await XamarinNavigation.PushModalAsync(view, true);
 
             await XamarinNavigation.PushAsync(view, true);
         }
