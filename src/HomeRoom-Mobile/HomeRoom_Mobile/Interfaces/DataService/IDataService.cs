@@ -11,6 +11,12 @@ namespace HomeRoom_Mobile.Interfaces.DataService
     public interface IDataService
     {
         /// <summary>
+        /// Gets the authentication token asynchronously.
+        /// </summary>
+        /// <param name="userSignIn">The user sign in.</param>
+        /// <returns></returns>
+        Task<ApiResponse<UserResponse>> GetAuthTokenAsync(UserSignInDto userSignIn);
+        /// <summary>
         /// Gets all courses.
         /// </summary>
         /// <returns></returns>

@@ -15,12 +15,13 @@ namespace HomeRoom_Mobile.Modules
         public override void Load()
         {
             // Bind ViewModels
+            Bind<SignInViewModel>().ToSelf();
             Bind<CourseDetailViewModel>().ToSelf();
             Bind<MainViewModel>().ToSelf();
             Bind<NewCourseViewModel>().ToSelf();
 
             // Bind Core Services
-            var dataService = new DataService(new Uri("http://homeroomdev.azurewebsites.net"));
+            var dataService = new DataService(new Uri("http://homeroomdev.azurewebsites.net"), Helpers.Settings.ApiAuthToken);
 
             Bind<IDataService>().ToMethod(x => dataService);
 

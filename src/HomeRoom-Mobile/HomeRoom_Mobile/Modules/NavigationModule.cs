@@ -33,6 +33,7 @@ namespace HomeRoom_Mobile.Modules
             navigationService.RegisterViewMapping(typeof(CourseDetailViewModel), typeof(CourseDetailsPage));
             navigationService.RegisterViewMapping(typeof(MainViewModel), typeof(MainPage));
             navigationService.RegisterViewMapping(typeof(NewCourseViewModel), typeof(NewCoursePage));
+            navigationService.RegisterViewMapping(typeof(SignInViewModel), typeof(SignInPage));
             
             // Bind the Navigation service
             Bind<INavigationService>().ToMethod(x => navigationService).InSingletonScope();

@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:HomeRoom_Mobile.Converters;assembly=HomeRoom_Mobile"
+             x:Class="HomeRoom_Mobile.Views.SignInPage"
+             Padding="20">
+    <ContentPage.Resources>
+    <ResourceDictionary>
+      <converters:InverseBooleanConverter x:Key="InverseBoolean"/>
+    </ResourceDictionary>
+  </ContentPage.Resources>
+  
+    <Grid>
+        <StackLayout VerticalOptions="Center">
+    <Entry Text="{Binding Email}"
+           Placeholder="Email"/>
+    <Entry Text="{Binding Password}"
+           Placeholder="Password"/>
+    <Button BackgroundColor="Aqua"
+            TextColor="White"
+            Text="Sign In"
+            Command="{Binding SignInCommand}"
+            IsEnabled="{Binding IsBusy, Converter={StaticResource InverseBoolean}}"/>
+  </StackLayout>
+    
+  <!--Loading indicator, shown when trying to log in-->
+    <StackLayout Orientation="Vertical"
+                 HorizontalOptions="Center"
+                 IsVisible="{Binding IsBusy}">
+      <ActivityIndicator IsRunning="True"
+                         IsVisible="True"/>
+      <Label Text="Verifying Login Info..."/>
+    
+    </StackLayout>
+    </Grid>
+
+</ContentPage>

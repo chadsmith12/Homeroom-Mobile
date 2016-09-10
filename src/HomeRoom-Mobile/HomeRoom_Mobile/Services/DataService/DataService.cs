@@ -15,12 +15,26 @@ namespace HomeRoom_Mobile.Services.DataService
         private readonly Uri _baseUri;
         private readonly IDictionary<string, string> _headers;
         
-        public DataService(Uri baseUri)
+        public DataService(Uri baseUri, string apiToken)
         {
             _baseUri = baseUri;
 
             _headers = new Dictionary<string, string>();
-        } 
+            _headers.Add("Authorization", "Bearer " + apiToken);
+        }
+
+        public async Task<ApiResponse<UserResponse>> GetAuthTokenAsync(UserSignInDto userSignIn)
+        {
+            var url = new Uri(_baseUri, "/api/Account/Authenticate/");
+
+            var response = await SendRequestAsync<ApiResponse<UserResponse>>(url, HttpMethod.Post, requestData: userSignIn);
+            if (response.Success)
+            {
+                _headers["Authorization"] = "Bearer " + response.Result.ApiToken;
+            }
+
+            return response;
+        }
 
         public async Task<ApiResponse<CoursesResponse>> GetAllCourses()
         {

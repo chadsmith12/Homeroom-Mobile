@@ -62,6 +62,11 @@ namespace HomeRoom_Mobile.ViewModels
 
         public override async Task Init()
         {
+            // send the user to the sign in page if the token is no longer valid
+            var currentApp = (App) Application.Current;
+            if (!currentApp.IsSignedIn)
+                await NavigationService.NavigateTo<SignInViewModel>();
+
             await LoadCourses();
         }
 
@@ -78,7 +83,6 @@ namespace HomeRoom_Mobile.ViewModels
 
             try
             {
-                Debug.WriteLine("loading courses...");
                 var courses = await _dataService.GetAllCourses();
                 if (courses.Success)
                     Courses = new ObservableCollection<Course>(courses.Result.Courses.Select(x => new Course {Name = x.Name, Subject = x.Subject, Teacher = x.Teacher}));
@@ -88,7 +92,6 @@ namespace HomeRoom_Mobile.ViewModels
             {
                 IsBusy = false;
             }
-
         }
         #endregion
     }

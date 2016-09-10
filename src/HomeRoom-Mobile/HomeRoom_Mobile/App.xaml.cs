@@ -28,6 +28,14 @@ namespace HomeRoom_Mobile
         /// </value>
         public static Repository.Repository Repository => _repository ?? (_repository = new Repository.Repository("HomeRoom-Mobile.db3"));
 
+        /// <summary>
+        /// Gets a value indicating whether the user is signed in.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if this instance is signed in; otherwise, <c>false</c>.
+        /// </value>
+        public bool IsSignedIn => !string.IsNullOrWhiteSpace(Helpers.Settings.ApiAuthToken);
+
         public App(params INinjectModule[] platformModules)
         {
             InitializeComponent();
