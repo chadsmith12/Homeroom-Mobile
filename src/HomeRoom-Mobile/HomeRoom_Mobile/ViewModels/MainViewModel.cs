@@ -13,13 +13,15 @@ namespace HomeRoom_Mobile.ViewModels
     {
         #region Privae Fields
         private readonly IDataService _dataService;
+        private readonly ICourseService _courseService;
         #endregion
 
         #region Constructors
-        public MainViewModel(INavigationService navigationService, IDataService dataService) : base(navigationService)
+        public MainViewModel(INavigationService navigationService, IDataService dataService, ICourseService courseService) : base(navigationService)
         {
             Courses = new ObservableCollection<CourseDto>();
             _dataService = dataService;
+            _courseService = courseService;
         }
         #endregion
 
@@ -29,8 +31,10 @@ namespace HomeRoom_Mobile.ViewModels
             // send the user to the sign in page if the token is no longer valid
             var currentApp = (App)Application.Current;
             if (!currentApp.IsSignedIn)
+            {
                 await NavigationService.NavigateTo<SignInViewModel>();
-
+                return;
+            }
             await LoadCourses();
         }
 
@@ -44,10 +48,11 @@ namespace HomeRoom_Mobile.ViewModels
 
             try
             {
-                var courses = await _dataService.GetAllCourses();
+                var courses = await _courseService.GetAllUserCourses();
+                Helpers.Settings.NeedsApiSync = false;
 
-                if (courses.Success)
-                    Courses = new ObservableCollection<CourseDto>(courses.Result.Courses);
+                if (courses != null)
+                    Courses = new ObservableCollection<CourseDto>(courses.Courses);
             }
             finally
             {

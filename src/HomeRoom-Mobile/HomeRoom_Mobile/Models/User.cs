@@ -1,4 +1,6 @@
-﻿using HomeRoom_Mobile.Enumerations;
+﻿using System.Collections.Generic;
+using HomeRoom_Mobile.Enumerations;
+using SQLiteNetExtensions.Attributes;
 
 namespace HomeRoom_Mobile.Models
 {
@@ -9,5 +11,10 @@ namespace HomeRoom_Mobile.Models
         public string UserName { get; set; }
         public string Email { get; set; }
         public AccountType AccountType { get; set; }
+
+        [OneToMany(CascadeOperations = CascadeOperation.All)]
+        public virtual IList<SyncHistory> SyncHistories { get; set; }
+        [OneToMany(CascadeOperations = CascadeOperation.All)]
+        public virtual IList<Course> Courses { get; set; } 
     }
 }

@@ -32,6 +32,8 @@ namespace HomeRoom_Mobile.Repository
 
             // Define/Create any of the tables the database needs here
             _database.CreateTable<Course>();
+            _database.CreateTable<User>();
+            _database.CreateTable<SyncHistory>();
         }
 
         /// <summary>

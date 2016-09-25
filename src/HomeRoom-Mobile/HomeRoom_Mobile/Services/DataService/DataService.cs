@@ -38,8 +38,8 @@ namespace HomeRoom_Mobile.Services.DataService
 
         public async Task<ApiResponse<CoursesResponse>> GetAllCourses()
         {
-            var url = new Uri(_baseUri, "/api/Course/Courses/");
-            var response = await SendRequestAsync<ApiResponse<CoursesResponse>>(url, HttpMethod.Get);
+            var url = new Uri(_baseUri, "/api/Course/UserCourses/");
+            var response = await SendRequestAsync<ApiResponse<CoursesResponse>>(url, HttpMethod.Get, _headers);
 
             return response;
         }

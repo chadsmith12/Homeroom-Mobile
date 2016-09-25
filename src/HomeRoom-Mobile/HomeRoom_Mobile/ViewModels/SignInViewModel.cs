@@ -42,6 +42,8 @@ namespace HomeRoom_Mobile.ViewModels
             if (response.Success)
             {
                 Helpers.Settings.ApiAuthToken = response.Result.ApiToken;
+                Helpers.Settings.CurrentUserId = response.Result.UserId;
+                Helpers.Settings.NeedsApiSync = true;
                 await NavigationService.NavigateTo<MainViewModel>();
                 await NavigationService.RemoveLastView();
             }
